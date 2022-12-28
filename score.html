@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>PHP | TEST</title>
+    <!-- ================== BEGIN core-css ================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,600;1,600&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,500;0,600;0,700;1,300;1,500;1,600;1,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="assets/sass/default/app.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"/>
+    <link href="assets/sass/main.css" rel="stylesheet" />
+    <!-- ================== END core-css ================== -->
+  </head>
+  <body id="landing-body">
+    <div class="stepper-wrapper mt-4">
+      <div class="stepper-item completed active">
+        <div class="step-counter fs-3">📜</div>
+        <div class="step-name">RULES</div>
+      </div>
+      <div class="stepper-item completed active">
+        <div class="step-counter fs-3">⏳</div>
+        <div class="step-name">TEST</div>
+      </div>
+      <div class="stepper-item completed active">
+        <div class="step-counter fs-3">🎯</div>
+        <div class="step-name">SCORE</div>
+      </div>
+    </div>
+      <!-- SCORE CONTAINER -->
+      <div class="container d-flex justify-content-center">
+        <div class="text-center mt-3 p-5 rounded" style="width: 500px; border: 1px solid black;">
+            <div>
+                <div class="d-flex-block">
+                  <p class="fs-2">🎁</p>
+                    <h3 class="fw-bold text-info">RESULTS</h3><hr>
+                </div>
+                <div class="box-item d-flex mt-4">
+                    <p class="box-para fw-bold">Score 🎯 :</p>
+                    <h1 class="box-text ms-3 mt-1" id="score">0</h1>
+                  </div>
+                  <div class="box-item d-flex">
+                    <p class="box-para fw-bold">Correct Questions ✔️ :</p>
+                    <h1 class="box-text ms-3 mt-1" id="numCorrect">0</h1>
+                  </div>
+                  <div class="box-item d-flex">
+                    <p class="box-para fw-bold">Incorrect Questions ❌ :</p>
+                    <h1 class="box-text ms-3 mt-1" id="numIncorrect">0</h1>
+                  </div>
+                  <div class="box-item d-flex">
+                    <p class="box-para fw-bold">Performance 🎉 :</p>
+                    <h1 class="box-text ms-3 mt-1" id="performance">Good</h1>
+                  </div>
+                  <div class="d-flex justify-content-around mt-3">
+                    <a href="./index.html" class="btn btn-warning border rounded-pill w-25">Home</a>
+                    <a href="./quizz.html" class="btn btn-danger border rounded-pill w-25">Repeat</a>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      var score = sessionStorage.getItem("score");
+      var correct = sessionStorage.getItem("correct");
+      var incorrect = sessionStorage.getItem("incorrect");
+      var performance = sessionStorage.getItem("performance");
+      document.getElementById("score").innerText = score;
+      document.getElementById("numCorrect").innerText = correct;
+      document.getElementById("numIncorrect").innerText = incorrect;
+      document.getElementById("performance").innerText = performance;
+    </script>
+    </body>
+    <!-- ================== BEGIN core-js ================== -->
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="./assets/js/scripts.js"></script>
+    <script src="./assets/js/data.js"></script>
+    <!-- ================== END core-js ================== -->
+</html>
