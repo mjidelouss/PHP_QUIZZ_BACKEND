@@ -39,7 +39,7 @@
                               </div>
                             <h1 class="display-2 lh-1" style="color: rgb(82, 136, 230); margin-top: 5rem;">PHP Knowledge Test</h1>
                             <p class="lead fw-bolder fs-5" style="color: rgba(40, 40, 38, 0.872);">Welcome to PHP Knowledge Test, we have a bank of questions concerning php if you want to test your knowledge in them click the button Start.</p>
-                            <a href="./quizz.html" class="btn btn-primary border rounded w-25">Start</a>
+                            <a href="./quizz.php" class="btn btn-primary border rounded w-25">Start</a>
                             <button class="btn btn-warning border rounded w-25" data-bs-toggle="modal" data-bs-target="#modal-rules">Rules</button>
                         </div>
                     </div>

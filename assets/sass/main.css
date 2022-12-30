@@ -66,13 +66,13 @@ p {
 .option-letter {
   padding: 1rem 1.1rem;
   color: white;
+  margin-top: -0.3rem;
 }
 
 .option-text {
   padding: 1rem;
   width: 100%;
-  margin-top: -4.7rem;
-  margin-left: 2rem;
+  margin-top: -0.3rem;
 }
 
 .correct {

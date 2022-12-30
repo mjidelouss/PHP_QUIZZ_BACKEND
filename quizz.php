@@ -1,3 +1,18 @@
+<?php
+include_once './classes/questions.class.php';
+
+$questions = new Questions();
+
+// Get an array of questions from the database
+$allQuestions = $questions->getQuestions();
+
+// Encode the array of questions as a JSON string
+$json = json_encode($allQuestions);
+
+// Return the JSON string to the client
+echo $json;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,8 +90,10 @@
     </body>
     <!-- ================== BEGIN core-js ================== -->
     <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./assets/js/vendor.min.js"></script>
+    <script src="./assets/js/app.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="./assets/js/scripts.js" type="module"></script>
-    <script src="./assets/js/data.js"></script>
+    <script src="./assets/js/scripts.js"></script>
     <!-- ================== END core-js ================== -->
 </html>

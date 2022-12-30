@@ -1,4 +1,3 @@
-import { questions } from "./data.js";
 // Declaring variables 
 const question = document.querySelector('#question');
 const options = Array.from(document.getElementsByClassName("option-text"));
@@ -6,6 +5,17 @@ const progressText = document.querySelector('#progressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull = document.querySelector('#progressBarFull');
 const timer = document.querySelector('#timer');
+let questions;
+
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        questions = JSON.parse(this.responseText);
+        console.log(question);
+    }
+};
+xhr.open('GET', 'PHP_QUIZZ_BACKEND/quizz.php', true);
+xhr.send();
 
 let score = 0;
 let questionIndex = 0;

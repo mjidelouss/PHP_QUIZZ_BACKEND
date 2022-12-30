@@ -55,8 +55,8 @@
                     <h1 class="box-text ms-3 mt-1" id="performance">Good</h1>
                   </div>
                   <div class="d-flex justify-content-around mt-3">
-                    <a href="./index.html" class="btn btn-warning border rounded-pill w-25">Home</a>
-                    <a href="./quizz.html" class="btn btn-danger border rounded-pill w-25">Repeat</a>
+                    <a href="./index.php" class="btn btn-warning border rounded-pill w-25">Home</a>
+                    <a href="./quizz.php" class="btn btn-danger border rounded-pill w-25">Repeat</a>
                   </div>
             </div>
         </div>
@@ -76,6 +76,5 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <script src="./assets/js/scripts.js"></script>
-    <script src="./assets/js/data.js"></script>
     <!-- ================== END core-js ================== -->
 </html>
