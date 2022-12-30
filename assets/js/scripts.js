@@ -5,35 +5,35 @@ const progressText = document.querySelector('#progressText');
 const scoreText = document.querySelector('#score');
 const progressBarFull = document.querySelector('#progressBarFull');
 const timer = document.querySelector('#timer');
-let questions;
 
-const xhr = new XMLHttpRequest();
-xhr.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        questions = JSON.parse(this.responseText);
-        console.log(question);
-    }
-};
-xhr.open('GET', 'PHP_QUIZZ_BACKEND/quizz.php', true);
-xhr.send();
-
+let questions = [];
+let shuffledQuestions;
 let score = 0;
 let questionIndex = 0;
 let questionCounter = 0;
 let countdown = 30;
 let correctQuestionsCounter = 0;
 let incorrectQuestionsCounter = 0;
-const MAX_QUESTIONS = questions.length;
+let maxQuestions;
+
+const xhr = new XMLHttpRequest();
+xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        questions = JSON.parse(this.responseText);
+        shuffleArray(questions);
+        initTest(shuffledQuestions);
+    }
+};
+xhr.open('GET', 'classes/questions.class.php?question', true);
+xhr.send();
 
 // function shuffleArray to shuffle the array
 function shuffleArray(array) {
-    return array.sort(() => Math.random() - 0.5);
+    shuffledQuestions = array.sort(() => Math.random() - 0.5);
+    maxQuestions = shuffledQuestions.length;
 }
-
-const shuffledQuestions = shuffleArray(questions);
-
 // function initTest sets the data from the array
-function initTest() {
+function initTest(shuffledQuestions) {
     // Setting the Questions from the array
     question.innerText = shuffledQuestions[questionIndex].question;
     options.forEach((option, index) => {
@@ -50,8 +50,6 @@ function initTest() {
     });
     startCountdown();
 }
-  
-  
 
 let intervalId;
 
@@ -81,33 +79,33 @@ function goToNextQuestion() {
   questionCounter++;
 
   // In case the questions reaches the maximum
-  if (questionCounter >= MAX_QUESTIONS) 
+  if (questionCounter >= maxQuestions) 
   {
     // Storing values in the storage to be used in another page
     sessionStorage.setItem("score", score);
     sessionStorage.setItem("correct", correctQuestionsCounter);
     sessionStorage.setItem("incorrect", incorrectQuestionsCounter);
-    if (correctQuestionsCounter < (MAX_QUESTIONS / 2))
+    if (correctQuestionsCounter < (maxQuestions / 2))
         sessionStorage.setItem("performance", "Bad");
-    if (correctQuestionsCounter == (MAX_QUESTIONS / 2))
+    if (correctQuestionsCounter == (maxQuestions / 2))
         sessionStorage.setItem("performance", "Average");
-    if (correctQuestionsCounter > (MAX_QUESTIONS / 2))
+    if (correctQuestionsCounter > (maxQuestions / 2))
         sessionStorage.setItem("performance", "Good");
-    if (correctQuestionsCounter == MAX_QUESTIONS)
+    if (correctQuestionsCounter == maxQuestions)
         sessionStorage.setItem("performance", "Perfect");
     // Sending the user to the score.html page
-    window.location.href = "score.html";
+    window.location.href = "score.php";
     return;
   }
   countdown = 30;
   // Clear the countdown from the page
   timer.innerText = '';
   // Updating the Prograss Bar
-  progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-  progressText.innerText = `Question ❔ ${questionCounter} / ${MAX_QUESTIONS}`;
+  progressBarFull.style.width = `${(questionCounter / maxQuestions) * 100}%`;
+  progressText.innerText = `Question ❔ ${questionCounter} / ${maxQuestions}`;
   // Increment the question index and update the quiz with the new question
   questionIndex++;
-  initTest();
+  initTest(shuffledQuestions);
 }
 
 options.forEach(option => {
@@ -120,8 +118,8 @@ options.forEach(option => {
         const correct = selectedoption.dataset.correct;
 
         // Updating the progress bar when the user clicks on an option
-        progressBarFull.style.width = `${(questionCounter / MAX_QUESTIONS) * 100}%`;
-        progressText.innerText = `Question ❔ ${questionCounter} / ${MAX_QUESTIONS}`;
+        progressBarFull.style.width = `${(questionCounter / maxQuestions) * 100}%`;
+        progressText.innerText = `Question ❔ ${questionCounter} / ${maxQuestions}`;
 
         // In case the option is correct
         if (correct === 'true') {
@@ -173,4 +171,3 @@ options.forEach(option => {
 });
 
 // Starting the Test
-initTest();

@@ -22,15 +22,24 @@ public function getQuestions()
     $questions = array();
     // Loop through the result and create a new Questions object for each row
     while ($row = $stmt->fetch()) {
-        $question = new Questions();
-        $question->question = $row["question"];
-        $question->options = explode(',', $row['options']);
-        $question->answer = $row["answer"];
+        $question = array(
+            "question" => htmlentities($row['question']),
+            "options" => explode(",", htmlentities($row['options'])),
+            "answer" => intval($row['answer'])
+        );
         array_push($questions, $question);
     }
     // Return the array of Questions objects
     return $questions;
+    
+    }
 }
 
-
+$questions = new Questions();
+// Get an array of questions from the database
+$questionss = $questions->getQuestions();
+if(isset($_GET['question'])){
+//   $json  = json_encode($questions);
+  echo json_encode($questionss);
+//   echo $json;
 }

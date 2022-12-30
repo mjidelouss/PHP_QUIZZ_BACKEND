@@ -1,16 +1,5 @@
 <?php
 include_once './classes/questions.class.php';
-
-$questions = new Questions();
-
-// Get an array of questions from the database
-$allQuestions = $questions->getQuestions();
-
-// Encode the array of questions as a JSON string
-$json = json_encode($allQuestions);
-
-// Return the JSON string to the client
-echo $json;
 ?>
 
 <!DOCTYPE html>
