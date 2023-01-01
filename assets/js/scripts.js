@@ -173,5 +173,3 @@ options.forEach(option => {
           }, 1000);
     });
 });
-
-// Starting the Test

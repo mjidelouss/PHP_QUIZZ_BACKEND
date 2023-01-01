@@ -77,12 +77,33 @@
               </div>
               <div class="d-flex justify-content-around mt-3">
                 <a href="./index.php" class="btn btn-warning border rounded-pill w-25">Home</a>
+                <button class="btn btn-primary border rounded-pill w-25" data-bs-toggle="modal" data-bs-target="#modal-score">Score Board</button>
                 <a href="./quizz.php" class="btn btn-danger border rounded-pill w-25">Repeat</a>
               </div>';
-                  ?>
+              ob_start();
+              // PHP code that generates content for the modal
+              $userHistory->scoreBoard();
+              $modalContent = ob_get_clean();
+            ?>
             </div>
         </div>
     </div>
+    <!-- SCOREBOARD MODAL -->
+<div class="modal fade" id="modal-score">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center" style="border: none;"></div>
+                <div id="contain">
+                <?php
+                  echo $modalContent;
+                ?>
+                </div>
+                <div class="modal-footer" style="border: none">
+                <button type="button" class="btn btn-primary border rounded" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+</div>
+</div>
     </body>
     <!-- ================== BEGIN core-js ================== -->
     <!-- JavaScript Bundle with Popper -->

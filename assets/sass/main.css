@@ -113,6 +113,29 @@ p {
     min-width: 2rem;
   }
 }
+#contain {
+  width: 500px;
+  height: auto;
+}
+#contain .row {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 40px;
+}
+#contain .name {
+  position: relative;
+  display: inline-block;
+  width: 70%;
+  margin-left: 0.5rem;
+  line-height: 45px;
+}
+#contain .score {
+  position: relative;
+  display: inline-block;
+  width: 25%;
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                   Layout                                   */
 /* -------------------------------------------------------------------------- */
