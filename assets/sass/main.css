@@ -46,6 +46,15 @@ p {
   align-items: center;
 }
 
+#user {
+  margin-left: 11.9rem;
+}
+
+@media screen and (max-width: 900px) {
+  #user {
+    display: none;
+  }
+}
 .option-container {
   display: flex;
   margin-bottom: 0.5rem;

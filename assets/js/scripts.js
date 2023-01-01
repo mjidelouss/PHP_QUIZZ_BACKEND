@@ -15,6 +15,7 @@ let countdown = 30;
 let correctQuestionsCounter = 0;
 let incorrectQuestionsCounter = 0;
 let maxQuestions;
+let performance;
 
 const xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
@@ -79,22 +80,25 @@ function goToNextQuestion() {
   questionCounter++;
 
   // In case the questions reaches the maximum
-  if (questionCounter >= maxQuestions) 
+  if (questionCounter >= maxQuestions)
   {
-    // Storing values in the storage to be used in another page
-    sessionStorage.setItem("score", score);
-    sessionStorage.setItem("correct", correctQuestionsCounter);
-    sessionStorage.setItem("incorrect", incorrectQuestionsCounter);
+    console.log('tree');
     if (correctQuestionsCounter < (maxQuestions / 2))
-        sessionStorage.setItem("performance", "Bad");
+        performance = "Bad";
     if (correctQuestionsCounter == (maxQuestions / 2))
-        sessionStorage.setItem("performance", "Average");
+        performance =  "Average";
     if (correctQuestionsCounter > (maxQuestions / 2))
-        sessionStorage.setItem("performance", "Good");
+        performance = "Good";
     if (correctQuestionsCounter == maxQuestions)
-        sessionStorage.setItem("performance", "Perfect");
-    // Sending the user to the score.html page
-    window.location.href = "score.php";
+        performance = "Perfect";
+    var data = {
+        score: score,
+        correct: correctQuestionsCounter,
+        incorrect: incorrectQuestionsCounter,
+        performance: performance
+        };
+    var my_json = JSON.stringify(data);
+    window.location.href = "score.php?data="+my_json;
     return;
   }
   countdown = 30;

@@ -1,3 +1,10 @@
+<?php
+  include_once './classes/history.class.php';
+  session_start();
+  if (!(isset($_SESSION['connected']))) {
+    header("location: index.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -38,39 +45,44 @@
                   <p class="fs-2">🎁</p>
                     <h3 class="fw-bold text-info">RESULTS</h3><hr>
                 </div>
-                <div class="box-item d-flex mt-4">
-                    <p class="box-para fw-bold">Score 🎯 :</p>
-                    <h1 class="box-text ms-3 mt-1" id="score">0</h1>
-                  </div>
-                  <div class="box-item d-flex">
-                    <p class="box-para fw-bold">Correct Questions ✔️ :</p>
-                    <h1 class="box-text ms-3 mt-1" id="numCorrect">0</h1>
-                  </div>
-                  <div class="box-item d-flex">
-                    <p class="box-para fw-bold">Incorrect Questions ❌ :</p>
-                    <h1 class="box-text ms-3 mt-1" id="numIncorrect">0</h1>
-                  </div>
-                  <div class="box-item d-flex">
-                    <p class="box-para fw-bold">Performance 🎉 :</p>
-                    <h1 class="box-text ms-3 mt-1" id="performance">Good</h1>
-                  </div>
-                  <div class="d-flex justify-content-around mt-3">
-                    <a href="./index.php" class="btn btn-warning border rounded-pill w-25">Home</a>
-                    <a href="./quizz.php" class="btn btn-danger border rounded-pill w-25">Repeat</a>
-                  </div>
+                <?php
+                $data = json_decode($_GET['data']);
+                $score = $data->score;
+                $correct = $data->correct;
+                $incorrect = $data->incorrect;
+                $performance = $data->performance;
+
+                $userId = $_SESSION['connected'];
+                $dateTime = date('Y-m-d H:i:s');
+                $ip = $_SERVER['REMOTE_ADDR'];
+                $osBrowser = $_SERVER['HTTP_USER_AGENT'];
+
+                $userHistory = new History;
+                $userHistory->insertHistory($userId, $score, $dateTime, $ip, $osBrowser);
+                echo '<div class="box-item d-flex mt-4">
+                <p class="box-para fw-bold">Score 🎯 :</p>
+                <h1 class="box-text ms-3 mt-1" id="score">'.$score.'</h1>
+              </div>
+              <div class="box-item d-flex">
+                <p class="box-para fw-bold">Correct Questions ✔️ :</p>
+                <h1 class="box-text ms-3 mt-1" id="numCorrect">'.$correct.'</h1>
+              </div>
+              <div class="box-item d-flex">
+                <p class="box-para fw-bold">Incorrect Questions ❌ :</p>
+                <h1 class="box-text ms-3 mt-1" id="numIncorrect">'.$incorrect.'</h1>
+              </div>
+              <div class="box-item d-flex">
+                <p class="box-para fw-bold">Performance 🎉 :</p>
+                <h1 class="box-text ms-3 mt-1" id="performance">'.$performance.'</h1>
+              </div>
+              <div class="d-flex justify-content-around mt-3">
+                <a href="./index.php" class="btn btn-warning border rounded-pill w-25">Home</a>
+                <a href="./quizz.php" class="btn btn-danger border rounded-pill w-25">Repeat</a>
+              </div>';
+                  ?>
             </div>
         </div>
     </div>
-    <script>
-      var score = sessionStorage.getItem("score");
-      var correct = sessionStorage.getItem("correct");
-      var incorrect = sessionStorage.getItem("incorrect");
-      var performance = sessionStorage.getItem("performance");
-      document.getElementById("score").innerText = score;
-      document.getElementById("numCorrect").innerText = correct;
-      document.getElementById("numIncorrect").innerText = incorrect;
-      document.getElementById("performance").innerText = performance;
-    </script>
     </body>
     <!-- ================== BEGIN core-js ================== -->
     <!-- JavaScript Bundle with Popper -->

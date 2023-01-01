@@ -1,5 +1,9 @@
 <?php
-include_once './classes/questions.class.php';
+  include_once './classes/questions.class.php';
+  session_start();
+  if (!(isset($_SESSION['connected']))) {
+    header("location: index.php");
+}
 ?>
 
 <!DOCTYPE html>

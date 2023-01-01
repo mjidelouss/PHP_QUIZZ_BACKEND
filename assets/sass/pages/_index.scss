@@ -38,3 +38,12 @@ p {
 	@include flexx(center);
 	align-items: center; 
 }
+
+#user {
+	margin-left: 11.9rem;
+}
+@media screen and (max-width: 900px) {
+	#user {
+		display: none;
+	}
+}

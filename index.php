@@ -1,3 +1,8 @@
+<?php
+    include_once './classes/login.class.php';
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,14 +20,46 @@
     <link href="assets/sass/main.css" rel="stylesheet" />
     <!-- ================== END core-css ================== -->
   </head>
-  <body id="landing-body">    
+  <body id="landing-body">   
         <!--header-->
         <section id="landing-section">
             <div class="container px-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6">
                         <!-- youcode text-->
-                        <div class="mb-5 mb-lg-0 text-center text-lg-start">
+                        <div class="mb-lg-0 text-center text-lg-start">
+                        <?php
+                    $login = new Login();
+                    if (isset($_POST['login'])) {
+                        $_SESSION['connected'] = $login->checkLogin($_POST['userName'], $_POST['pass']);
+                        if (!($_SESSION['connected'])) {
+                            $_SESSION['message'] = "Wrong Credentials!!";
+                        }
+                    }
+                    if(isset($_SESSION['connected'])) {
+                        $db = new DbConnection;
+                        $userid = $_SESSION['connected'];
+                        $sql = "SELECT * FROM users WHERE id = $userid";
+                        $stmt = $db->connect()->query($sql);
+                        $row = $stmt->fetch();
+                        $count = $stmt->rowCount();
+                        $username = $row['username'];
+
+                        echo '<div class="d-block pt-2" id="user">
+                            <img src="./assets/img/user1.png" class="rounded-circle ms-4" width="70" alt="Image Not Found">
+                            <div class="mt-1" style="margin-left: 2.6rem;">
+                                <h5>'.$username.'</h5>
+                            </div>
+                        </div>';
+                    }
+                    if (isset($_SESSION['message'])) {
+                        echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>'.$_SESSION['message'].'</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>';
+                        unset($_SESSION['message']);
+                    }
+                    ?> 
                             <div class="stepper-wrapper me-4 mt-4">
                                 <div class="stepper-item completed active">
                                     <div class="step-counter fs-3">📜</div>
@@ -37,10 +74,24 @@
                                   <div class="step-name">SCORE</div>
                                 </div>
                               </div>
-                            <h1 class="display-2 lh-1" style="color: rgb(82, 136, 230); margin-top: 5rem;">PHP Knowledge Test</h1>
+                            <h1 class="display-3 lh-1" style="color: rgb(82, 136, 230); margin-top: 5rem;">PHP Knowledge Test</h1>
                             <p class="lead fw-bolder fs-5" style="color: rgba(40, 40, 38, 0.872);">Welcome to PHP Knowledge Test, we have a bank of questions concerning php if you want to test your knowledge in them click the button Start.</p>
+                            <?php
+                            if (isset($_SESSION['connected'])) {
+                                echo '<form action="" method="POST">
+                                <button type="submit" name="logout" class="btn btn-danger border rounded w-25">Logout</button>';
+                                if (isset($_POST['logout'])) {
+                                    unset($_SESSION['connected']);
+                                    header("location: index.php");
+                                }
+                            }
+                            else {
+                                echo '<button class="btn btn-danger border rounded w-25" data-bs-toggle="modal" data-bs-target="#modal-log">Login</button>';
+                            }
+                            ?>
                             <a href="./quizz.php" class="btn btn-primary border rounded w-25">Start</a>
                             <button class="btn btn-warning border rounded w-25" data-bs-toggle="modal" data-bs-target="#modal-rules">Rules</button>
+                        </form>
                         </div>
                     </div>
                     <div class="col-lg-6">
@@ -64,6 +115,37 @@
                 </div>
             </div>
         </footer>
+        <!-- LOGIN MODAL -->
+            <div class="modal fade" id="modal-log">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="" method="POST">
+                            <div class="modal-header d-flex justify-content-center" style="border: none;">
+                                <img src="./assets/img/user.png" width="110" height="105" alt="">
+                            </div>
+                            <div class="modal-body">
+                                <div class="" id="">
+                                    <input type="text" id="profileId" name="profileId" value="" style="display: none">
+                                    <label class="col-form-label text-black">Username</label>
+                                    <input type="text" class="form-control" id="userName" name="userName" required/>
+                                </div>
+                                <div class="" id="">
+                                    <label class="col-form-label text-black">Password</label>
+                                    <input type="password" class="form-control" id="pass" name="pass" required />
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="border: none">
+                                <button type="button" class="btn btn-primary border rounded-pill" data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <button type="submit" id="login" class="btn btn-success rounded-pill text-white" name="login">
+                                    Login
+                                </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- RULES MODAL -->
 <div class="modal fade" id="modal-rules">
     <div class="modal-dialog">
