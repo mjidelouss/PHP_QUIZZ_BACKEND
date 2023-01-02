@@ -39,7 +39,5 @@ $questions = new Questions();
 // Get an array of questions from the database
 $questionss = $questions->getQuestions();
 if(isset($_GET['question'])){
-//   $json  = json_encode($questions);
-  echo json_encode($questionss);
-//   echo $json;
+    echo json_encode($questionss);
 }

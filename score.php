@@ -56,7 +56,7 @@
                 $dateTime = date('Y-m-d H:i:s');
                 $ip = $_SERVER['REMOTE_ADDR'];
                 $osBrowser = $_SERVER['HTTP_USER_AGENT'];
-
+                
                 $userHistory = new History;
                 $userHistory->insertHistory($userId, $score, $dateTime, $ip, $osBrowser);
                 echo '<div class="box-item d-flex mt-4">

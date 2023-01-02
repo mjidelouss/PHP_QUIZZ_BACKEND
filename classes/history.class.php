@@ -22,7 +22,7 @@ class History
         $stmt = $this->conn->connect()->query($sql);
     }
 
-    // function to select the username and max score for each user that took the quizz
+    // function to select the username and max score for each user that took the test
     public function scoreBoard() {
         $sql = "SELECT DISTINCT username, MAX(score) as score FROM user_history, users WHERE user_history.user_id = users.id GROUP BY username ORDER BY score DESC;";
         $stmt = $this->conn->connect()->query($sql);

@@ -42,7 +42,7 @@ function initTest(shuffledQuestions) {
     options.forEach((option, index) => {
 
       // Set the text and data-correct attribute for each option element
-      option.innerText = shuffledQuestions[questionIndex].options[index];
+      option.innerHTML = shuffledQuestions[questionIndex].options[index];
       option.dataset.correct = shuffledQuestions[questionIndex].answer === (index + 1);
 
       // hide the option element by default
@@ -51,7 +51,7 @@ function initTest(shuffledQuestions) {
 
     // Show the options and their parent elements that are needed for the current question
     shuffledQuestions[questionIndex].options.forEach((option, index) => {
-      options[index].innerText = option;
+      options[index].innerHTML = option;
       options[index].parentElement.style.display = 'block';
     });
     startCountdown();
@@ -88,7 +88,6 @@ function goToNextQuestion() {
   // In case the questions reaches the maximum
   if (questionCounter >= maxQuestions)
   {
-    console.log('tree');
     if (correctQuestionsCounter < (maxQuestions / 2))
         performance = "Bad";
     if (correctQuestionsCounter == (maxQuestions / 2))
@@ -109,7 +108,7 @@ function goToNextQuestion() {
     window.location.href = "score.php?data="+my_json;
     return;
   }
-  
+
   countdown = 30;
   // Clear the countdown from the page
   timer.innerText = '';
@@ -182,3 +181,5 @@ options.forEach(option => {
           }, 1000);
     });
 });
+
+  
