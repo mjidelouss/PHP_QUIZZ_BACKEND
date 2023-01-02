@@ -17,6 +17,7 @@ let incorrectQuestionsCounter = 0;
 let maxQuestions;
 let performance;
 
+// ajax to retrieve the questions sent via GET
 const xhr = new XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -33,17 +34,21 @@ function shuffleArray(array) {
     shuffledQuestions = array.sort(() => Math.random() - 0.5);
     maxQuestions = shuffledQuestions.length;
 }
+
 // function initTest sets the data from the array
 function initTest(shuffledQuestions) {
     // Setting the Questions from the array
     question.innerText = shuffledQuestions[questionIndex].question;
     options.forEach((option, index) => {
+
       // Set the text and data-correct attribute for each option element
       option.innerText = shuffledQuestions[questionIndex].options[index];
       option.dataset.correct = shuffledQuestions[questionIndex].answer === (index + 1);
+
       // hide the option element by default
       option.parentElement.style.display = 'none';
     });
+
     // Show the options and their parent elements that are needed for the current question
     shuffledQuestions[questionIndex].options.forEach((option, index) => {
       options[index].innerText = option;
@@ -63,6 +68,7 @@ function startCountdown() {
   intervalId = setInterval(() => {
     countdown--;
     timer.innerText = countdown;
+
     // In case the countdown reaches 0
     if (countdown <= 0) {
       clearInterval(intervalId);
@@ -91,6 +97,8 @@ function goToNextQuestion() {
         performance = "Good";
     if (correctQuestionsCounter == maxQuestions)
         performance = "Perfect";
+    
+    // initializing an object data with data then sending it via GET 
     var data = {
         score: score,
         correct: correctQuestionsCounter,
@@ -101,6 +109,7 @@ function goToNextQuestion() {
     window.location.href = "score.php?data="+my_json;
     return;
   }
+  
   countdown = 30;
   // Clear the countdown from the page
   timer.innerText = '';
