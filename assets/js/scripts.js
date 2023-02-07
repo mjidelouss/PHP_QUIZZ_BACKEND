@@ -96,7 +96,6 @@ function goToNextQuestion() {
         performance = "Good";
     if (correctQuestionsCounter == maxQuestions)
         performance = "Perfect";
-    
     // initializing an object data with data then sending it via GET 
     var data = {
         score: score,
